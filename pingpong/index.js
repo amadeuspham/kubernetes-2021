@@ -1,11 +1,13 @@
 var express = require('express')
 var app = express()
 
-const hostname = '127.0.0.1';
-const port = 3000;
+const port = 7000;
+
+var counter = 0
 
 app.get('/',  function (req, res) {
-  res.send('This is your frinedly neighborhood Todo app')
+  res.send("pong " + counter.toString())
+  counter += 1
 })
 
 app.listen(port, () => {
