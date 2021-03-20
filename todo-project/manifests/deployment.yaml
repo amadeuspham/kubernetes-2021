@@ -12,7 +12,13 @@ spec:
       labels:
         app: todo
     spec:
+      volumes: 
+        - name: shared-image
+          emptyDir: {}
       containers:
         - name: todo
-          image: amadeuspham/kubernetes-todo:exercise105
+          image: amadeuspham/kubernetes-todo:exercise112
           imagePullPolicy: "Always"
+          volumeMounts:
+          - name: shared-image
+            mountPath: /usr/src/app/files

@@ -1,17 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hashgenerator-dep
+  name: hash-dep
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hashgenerator
+      app: hash
   template:
     metadata:
       labels:
-        app: hashgenerator
+        app: hash
     spec:
+      volumes: # Define volume
+        - name: shared-time
+          persistentVolumeClaim:
+            claimName: pingpong-claim
       containers:
         - name: hashgenerator
           image: amadeuspham/kubernetes-main-app
+          volumeMounts: 
+          - name: shared-time
+            mountPath: /usr/src/app/files
+        - name: timesaver
+          image: amadeuspham/timesaver
+          volumeMounts: 
+          - name: shared-time
+            mountPath: /usr/src/app/files

@@ -12,6 +12,13 @@ spec:
       labels:
         app: pingpong
     spec:
+      volumes: # Define volume
+        - name: shared-pingpongcount
+          persistentVolumeClaim:
+            claimName: pingpong-claim
       containers:
         - name: pingpong
           image: amadeuspham/kubernetes-pingpong
+          volumeMounts: 
+          - name: shared-pingpongcount
+            mountPath: /usr/src/app/files
