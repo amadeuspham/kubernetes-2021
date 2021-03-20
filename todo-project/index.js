@@ -7,7 +7,7 @@ var app = express()
 const hostname = '127.0.0.1';
 const port = 3000;
 
-const directory = path.join('/', 'Users', 'hunganh', 'Desktop')
+const directory = path.join('/', 'usr', 'src', 'app', 'files')
 const filePath = path.join(directory, 'image.jpg')
 const datePath = path.join(directory, 'date.txt')
 
@@ -59,7 +59,7 @@ app.get('/',  async (req, res) => {
         <br>
   `
   htmlStr += `
-    <form action="/action_page.php">
+    <form>
       <input type="text" id="todo" name="todo">
       <input type="submit" value="Submit">
     </form> 
