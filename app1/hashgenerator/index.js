@@ -1,6 +1,7 @@
 var express = require('express')
 var fs = require('fs')
 const path = require('path')
+const axios = require('axios')
 var app = express()
 
 const port = 5000;
@@ -22,10 +23,13 @@ const printHash = () => {
 
 printHash()
 
-app.get('/',  function (req, res) {
-  var d = new Date();
-  var n = d.toString();
-  var count = fs.readFileSync(pingpongPath)
+app.get('/',  async function (req, res) {
+  const d = new Date();
+  const n = d.toString();
+
+  // var count = fs.readFileSync(pingpongPath)
+  const response = await axios.get('http://pingpong-svc:4567')
+  const count = response.data
 
   res.write(n + ": " + randomHash + "\n")
   res.write("Ping / Pongs: " + count)

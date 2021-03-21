@@ -4,7 +4,6 @@ const axios = require('axios')
 const fs = require('fs')
 var app = express()
 
-const hostname = '127.0.0.1';
 const port = 3000;
 
 const directory = path.join('/', 'usr', 'src', 'app', 'files')
@@ -12,11 +11,6 @@ const filePath = path.join(directory, 'image.jpg')
 const datePath = path.join(directory, 'date.txt')
 
 app.use(express.static(directory));
-
-var todos = [
-  'First thing',
-  'Second thing'
-]
 
 const fileAlreadyExists = async () => new Promise(res => {
   fs.stat(filePath, (err, stats) => {
@@ -59,15 +53,19 @@ app.get('/',  async (req, res) => {
         <br>
   `
   htmlStr += `
-    <form>
+    <form method="POST" action="/api/todos">
       <input type="text" id="todo" name="todo">
       <input type="submit" value="Submit">
     </form> 
     <ul>
   `
+  const response = await axios.get('http://todo-backend-svc:3457/todos')
+  const todos = response.data
+
   todos.forEach(todo => {
-    htmlStr += '<li>' + todo + '</li>'
+    htmlStr += '<li>' + todo.content + '</li>'
   })
+
   htmlStr += `
         </ul>
       </body>

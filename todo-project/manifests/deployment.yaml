@@ -16,8 +16,8 @@ spec:
         - name: shared-image
           emptyDir: {}
       containers:
-        - name: todo
-          image: amadeuspham/kubernetes-todo:exercise113
+        - name: todo-frontend
+          image: amadeuspham/kubernetes-todo
           imagePullPolicy: "Always"
           volumeMounts:
           - name: shared-image
