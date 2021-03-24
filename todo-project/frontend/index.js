@@ -49,7 +49,7 @@ app.get('/',  async (req, res) => {
   htmlStr += `
     <html>
       <body>
-        <img src="/image.jpg" />
+        <img src="image.jpg" />
         <br>
   `
   htmlStr += `

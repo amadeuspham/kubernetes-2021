@@ -22,6 +22,12 @@ spec:
           volumeMounts: 
           - name: shared-time
             mountPath: /usr/src/app/files
+          env:
+            - name: MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: hash-configmap
+                  key: message
         - name: timesaver
           image: amadeuspham/timesaver
           volumeMounts: 

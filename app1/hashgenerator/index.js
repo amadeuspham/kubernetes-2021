@@ -2,12 +2,14 @@ var express = require('express')
 var fs = require('fs')
 const path = require('path')
 const axios = require('axios')
+const process = require('process');
+
 var app = express()
 
 const port = 5000;
 const directory = path.join('/', 'usr', 'src', 'app', 'files')
 const imagePath = path.join(directory, 'timestamp.txt')
-const pingpongPath = path.join(directory, 'pingpongcount.txt')
+// const pingpongPath = path.join(directory, 'pingpongcount.txt')
 
 const randomHash = Math.random().toString(36).substr(2, 6)
 
@@ -31,6 +33,7 @@ app.get('/',  async function (req, res) {
   const response = await axios.get('http://pingpong-svc:4567')
   const count = response.data
 
+  res.write(process.env.MESSAGE + "\n")
   res.write(n + ": " + randomHash + "\n")
   res.write("Ping / Pongs: " + count)
   res.end()
