@@ -2,6 +2,7 @@ var express = require('express')
 var fs = require('fs')
 const path = require('path')
 const axios = require('axios')
+const db = require('./queries')
 const process = require('process');
 
 var app = express()
@@ -9,7 +10,7 @@ var app = express()
 const port = 5000;
 const directory = path.join('/', 'usr', 'src', 'app', 'files')
 const imagePath = path.join(directory, 'timestamp.txt')
-// const pingpongPath = path.join(directory, 'pingpongcount.txt')
+const pingpongPath = path.join(directory, 'pingpongcount.txt')
 
 const randomHash = Math.random().toString(36).substr(2, 6)
 
@@ -29,9 +30,17 @@ app.get('/',  async function (req, res) {
   const d = new Date();
   const n = d.toString();
 
+  // POSTGRES
+  const rows = await db.pongDB()
+  const pingpongRow = rows[0]
+  const count = pingpongRow ? pingpongRow.value : 0
+
+  // VOLUME
   // var count = fs.readFileSync(pingpongPath)
-  const response = await axios.get('http://pingpong-svc:4567')
-  const count = response.data
+
+  // API
+  // const response = await axios.get('http://pingpong-svc:4567')
+  // const count = response.data
 
   res.write(process.env.MESSAGE + "\n")
   res.write(n + ": " + randomHash + "\n")

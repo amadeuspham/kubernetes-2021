@@ -19,6 +19,9 @@ spec:
       containers:
         - name: pingpong
           image: amadeuspham/kubernetes-pingpong
+          envFrom:
+          - secretRef:
+              name: postgres-dbpassword
           volumeMounts: 
           - name: shared-pingpongcount
             mountPath: /usr/src/app/files

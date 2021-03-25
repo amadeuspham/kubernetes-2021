@@ -1,6 +1,7 @@
 var fs = require('fs')
 var path = require('path')
 var express = require('express')
+const db = require('./queries')
 var app = express()
 
 const port = 7000;
@@ -11,12 +12,21 @@ const directory = path.join('/', 'usr', 'src', 'app', 'files')
 const filePath = path.join(directory, 'pingpongcount.txt')
 
 app.get('/',  function (req, res) {
-  res.send(counter.toString())
   counter += 1
+
+  // POSTGRES
+  db.pingDB("pingpong", counter)
+  res.send("Pinged " + counter.toString())
+
+  // API
+  // res.send(counter.toString())
+
+  // VOLUME
   // const countStr = counter.toString()
   // fs.writeFile(filePath, countStr, function (err) {
   //   if (err) return console.log(err);
   // })
+  // res.send("Pinged " + counter.toString())
 })
 
 app.listen(port, () => {

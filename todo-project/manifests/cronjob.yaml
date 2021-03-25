@@ -1,0 +1,17 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: wiki-job
+spec:
+  schedule: "0 0 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: wiki-job
+            image: amadeuspham/kubernetes-wiki
+            env:
+            - name: URL
+              value: "https://en.wikipedia.org/wiki/Special:Random"
+          restartPolicy: OnFailure

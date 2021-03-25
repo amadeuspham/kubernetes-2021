@@ -28,6 +28,9 @@ spec:
                 configMapKeyRef:
                   name: hash-configmap
                   key: message
+          envFrom:
+          - secretRef:
+              name: postgres-dbpassword
         - name: timesaver
           image: amadeuspham/timesaver
           volumeMounts: 
