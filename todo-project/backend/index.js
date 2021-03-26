@@ -50,13 +50,20 @@ app.get('/todos', (req, res) => {
 
 app.post('/todos', (req, res) => {
   const content = req.body.todo
-  console.log(content)
+  
   if (!content) {
+    console.log('content missing')
     return res.status(400).json({ 
       error: 'content missing' 
     })
+  } else if (content.length > 140) {
+    console.log('todo cannot be longer than 140 characters')
+    return res.status(413).json({ 
+      error: 'todo cannot be longer than 140 characters' 
+    })
   }
 
+  console.log(content)
   const newTodo = {id: uuidv4(), content: content}
   todos = todos.concat(newTodo)
   
