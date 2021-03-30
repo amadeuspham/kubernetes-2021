@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pingpong-svc
+spec:
+  type: NodePort # LoadBalancer for non-Ingress deployment to GKE
+  selector:
+    app: pingpong
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 7000

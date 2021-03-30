@@ -38,12 +38,11 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /data
+              subPath: postgres
   volumeClaimTemplates:
     - metadata:
         name: data
       spec:
-        accessModes: ["ReadWriteOnce"]
-        storageClassName: local-path
         resources:
           requests:
             storage: 100Mi
