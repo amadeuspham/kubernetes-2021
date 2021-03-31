@@ -6,9 +6,9 @@ on:
 env:
   GKE_CLUSTER: dwk-cluster
   GKE_ZONE: europe-north1-b
-  FRONTEND_IMAGE: kubernetes-todo
-  BACKEND_IMAGE: kubernetes-todo-backend
-  WIKI_IMAGE: kubernetes-wiki
+  FRONTEND_IMAGE: todo-dep
+  BACKEND_IMAGE: todo-backend-dep
+  WIKI_IMAGE: wiki-job
 
 jobs:
   # check:
@@ -87,4 +87,4 @@ jobs:
         kubectl apply -k .
         kubectl rollout status deployment $FRONTEND_IMAGE
         kubectl rollout status deployment $BACKEND_IMAGE
-        kubectl rollout status deployment $WIKI_IMAGE
+        kubectl rollout status cronjob $WIKI_IMAGE
