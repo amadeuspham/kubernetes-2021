@@ -81,10 +81,10 @@ jobs:
         chmod u+x ./kustomize
     - name: Deploy
       run: |-
-        ./kustomize edit set image PROJECT/IMAGE-FRONTEND=$FRONTEND_IMAGE_WITH_TAG
-        ./kustomize edit set image PROJECT/IMAGE-BACKEND=$BACKEND_IMAGE_WITH_TAG
-        ./kustomize edit set image PROJECT/IMAGE-WIKI=$WIKI_IMAGE_WITH_TAG
+        ./kustomize edit set image PROJECT/IMAGE_FRONTEND=$FRONTEND_IMAGE_WITH_TAG
+        ./kustomize edit set image PROJECT/IMAGE_BACKEND=$BACKEND_IMAGE_WITH_TAG
+        ./kustomize edit set image PROJECT/IMAGE_WIKI=$WIKI_IMAGE_WITH_TAG
         kubectl apply -k .
-        kubectl rollout status deployment $IMAGE-FRONTEND
-        kubectl rollout status deployment $IMAGE-BACKEND
-        kubectl rollout status deployment $IMAGE-WIKI
+        kubectl rollout status deployment $FRONTEND_IMAGE
+        kubectl rollout status deployment $BACKEND_IMAGE
+        kubectl rollout status deployment $WIKI_IMAGE
