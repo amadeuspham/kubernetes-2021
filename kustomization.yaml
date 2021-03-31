@@ -10,9 +10,9 @@ resources:
 - todo-project/manifests/ingress.yaml
 - todo-project/manifests/cronjob.yaml
 images:
-- name: PROJECT/IMAGE-FRONTEND
+- name: PROJECT/IMAGE_FRONTEND
   newName: amadeuspham/kubernetes-todo
-- name: PROJECT/IMAGE-BACKEND
+- name: PROJECT/IMAGE_BACKEND
   newName: amadeuspham/kubernetes-todo-backend
-- name: PROJECT/IMAGE-WIKI
+- name: PROJECT/IMAGE_WIKI
   newName: amadeuspham/kubernetes-wiki
