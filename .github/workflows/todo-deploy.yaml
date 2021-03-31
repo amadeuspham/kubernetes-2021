@@ -57,6 +57,8 @@ jobs:
         chmod u+x ./kustomize
     - name: Deploy
       run: |-
+        kubectl create namespace ${GITHUB_REF#refs/heads/} || true
+        kubectl config set-context --current --namespace=${GITHUB_REF#refs/heads/}
         ./kustomize edit set image PROJECT/IMAGE_FRONTEND=$FRONTEND_IMAGE_WITH_TAG
         ./kustomize edit set image PROJECT/IMAGE_BACKEND=$BACKEND_IMAGE_WITH_TAG
         ./kustomize edit set image PROJECT/IMAGE_WIKI=$WIKI_IMAGE_WITH_TAG
