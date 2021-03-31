@@ -1,0 +1,87 @@
+name: Release application
+
+on:
+  push:
+
+env:
+  GKE_CLUSTER: dwk-cluster
+  GKE_ZONE: europe-north1-b
+  FRONTEND-IMAGE: kubernetes-todo
+  BACKEND-IMAGE: kubernetes-todo-backend
+  WIKI-IMAGE: kubernetes-wiki
+
+jobs:
+  check:
+    name: Check todo-project files
+    outputs:
+      run_job: ${{ steps.check_files.outputs.run_job }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: check modified files
+        id: check_files
+        run: |
+          echo "=============== list modified files ==============="
+          git diff --name-only HEAD^ HEAD
+          
+          echo "========== check paths of modified files =========="
+          git diff --name-only HEAD^ HEAD > files.txt
+          while IFS= read -r file
+          do
+            echo $file
+            if [[ $file == todo-project/* ]]; then
+              echo "::set-output name=run_job::true"
+            fi
+          done < files.txt
+
+  build-publish-deploy:
+    name: Build, Publish and Deploy
+    needs: check
+    if: needs.check.outputs.run_job == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: google-github-actions/setup-gcloud@master
+      with:
+        service_account_key: ${{ secrets.GKE_SA_KEY }}
+        project_id: ${{ secrets.GKE_PROJECT }}
+    - run: gcloud --quiet auth configure-docker
+    - run: gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
+    - name: Create frontend image name and tag
+      run: echo "::set-env name=FRONTEND_IMAGE_WITH_TAG::gcr.io/${{ secrets.GKE_PROJECT }}/$FRONTEND-IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
+    - name: Create backend image name and tag
+      run: echo "::set-env name=BACKEND_IMAGE_WITH_TAG::gcr.io/${{ secrets.GKE_PROJECT }}/$BACKEND-IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
+    - name: Create wiki image name and tag
+      run: echo "::set-env name=WIKI_IMAGE_WITH_TAG::gcr.io/${{ secrets.GKE_PROJECT }}/$WIKI-IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
+    - name: Build frontend
+      run: docker build --tag "$FRONTEND_IMAGE_WITH_TAG" .
+      working-directory: todo-project/frontend
+    - name: Publish frontend
+      run: docker push "$FRONTEND_IMAGE_WITH_TAG"
+      working-directory: todo-project/frontend
+    - name: Build backend
+      run: docker build --tag "$BACKEND_IMAGE_WITH_TAG" .
+      working-directory: todo-project/backend
+    - name: Publish backend
+      run: docker push "$BACKEND_IMAGE_WITH_TAG"
+      working-directory: todo-project/backend
+    - name: Build wiki
+      run: docker build --tag "$WIKI_IMAGE_WITH_TAG" .
+      working-directory: todo-project/wiki-job
+    - name: Publish wiki
+      run: docker push "$WIKI_IMAGE_WITH_TAG"
+      working-directory: todo-project/wiki-job
+    - name: Set up Kustomize
+      run: |-
+        curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
+        chmod u+x ./kustomize
+    - name: Deploy
+      run: |-
+        ./kustomize edit set image PROJECT/IMAGE-FRONTEND=$FRONTEND_IMAGE_WITH_TAG
+        ./kustomize edit set image PROJECT/IMAGE-BACKEND=$BACKEND_IMAGE_WITH_TAG
+        ./kustomize edit set image PROJECT/IMAGE-WIKI=$WIKI_IMAGE_WITH_TAG
+        kubectl apply -k .
+        kubectl rollout status deployment $IMAGE-FRONTEND
+        kubectl rollout status deployment $IMAGE-BACKEND
+        kubectl rollout status deployment $IMAGE-WIKI
