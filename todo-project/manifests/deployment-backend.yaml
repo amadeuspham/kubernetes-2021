@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: todo-backend
-          image: amadeuspham/kubernetes-todo-backend
+          image: PROJECT/IMAGE-BACKEND
           env:
             - name: REDIS_PASSWORD
               valueFrom:

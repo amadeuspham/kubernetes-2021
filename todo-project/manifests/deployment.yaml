@@ -17,7 +17,7 @@ spec:
           emptyDir: {}
       containers:
         - name: todo-frontend
-          image: amadeuspham/kubernetes-todo
+          image: PROJECT/IMAGE-FRONTEND
           imagePullPolicy: "Always"
           volumeMounts:
           - name: shared-image

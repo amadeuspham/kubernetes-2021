@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- manifests/redis-config.yaml
+- manifests/redis.yaml
+- manifests/deployment.yaml
+- manifests/deployment-backend.yaml
+- manifests/service.yaml
+- manifests/service-backend.yaml
+- manifests/ingress.yaml
+- manifests/cronjob.yaml
+images:
+- name: PROJECT/IMAGE-FRONTEND
+  newName: amadeuspham/kubernetes-todo
+- name: PROJECT/IMAGE-BACKEND
+  newName: amadeuspham/kubernetes-todo-backend
+- name: PROJECT/IMAGE-WIKI
+  newName: amadeuspham/kubernetes-wiki
