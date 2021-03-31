@@ -88,4 +88,3 @@ jobs:
         kubectl rollout status deployment $IMAGE-FRONTEND
         kubectl rollout status deployment $IMAGE-BACKEND
         kubectl rollout status deployment $IMAGE-WIKI
-      working-directory: todo-project
