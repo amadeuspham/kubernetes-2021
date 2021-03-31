@@ -17,7 +17,7 @@ spec:
           emptyDir: {}
       containers:
         - name: todo-frontend
-          image: PROJECT/IMAGE-FRONTEND
+          image: PROJECT/IMAGE_FRONTEND
           imagePullPolicy: "Always"
           volumeMounts:
           - name: shared-image
