@@ -9,7 +9,7 @@ env:
 
 jobs:
   build-publish-deploy:
-    name: Build, Publish and Deploy
+    name: Delete environment
     runs-on: ubuntu-latest
 
     steps:
@@ -21,6 +21,6 @@ jobs:
         project_id: ${{ secrets.GKE_PROJECT }}
     - run: gcloud --quiet auth configure-docker
     - run: gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
-    - name: Deploy
+    - name: Delete namespace
       run: |-
         kubectl delete namespaces ${GITHUB_REF#refs/heads/} || true
