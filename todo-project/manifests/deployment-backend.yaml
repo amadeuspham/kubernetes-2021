@@ -37,6 +37,10 @@ spec:
                 secretKeyRef:
                   name: dbsecret
                   key: database
+          resources:
+            limits:
+              cpu: "200m"
+              memory: "100Mi"
         - name: cloud-sql-proxy
           # It is recommended to use the latest version of the Cloud SQL proxy
           # Make sure to update on a regular schedule!
