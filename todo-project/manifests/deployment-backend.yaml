@@ -26,17 +26,17 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: dbsecret
-                  key: username
+                  key: DB_USER
             - name: DB_PASS
               valueFrom:
                 secretKeyRef:
                   name: dbsecret
-                  key: password
+                  key: DB_PASS
             - name: DB_NAME
               valueFrom:
                 secretKeyRef:
                   name: dbsecret
-                  key: database
+                  key: DB_NAME
           resources:
             limits:
               cpu: "200m"
