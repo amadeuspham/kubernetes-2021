@@ -8,6 +8,8 @@ resources:
 - todo-project/manifests/deployment-backend.yaml
 - todo-project/manifests/service.yaml
 - todo-project/manifests/service-backend.yaml
+- todo-project/manifests/horizontalpodautoscaler.yaml
+- todo-project/manifests/horizontalpodautoscaler-backend.yaml
 - todo-project/manifests/ingress.yaml
 - todo-project/manifests/cronjob.yaml
 images:
