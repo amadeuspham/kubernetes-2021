@@ -12,6 +12,7 @@ spec:
       labels:
         app: todo-backend
     spec:
+      serviceAccountName: todoksa
       containers:
         - name: todo-backend
           image: PROJECT/IMAGE_BACKEND
@@ -21,3 +22,29 @@ spec:
                 configMapKeyRef:
                   name: redis-config
                   key: password
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: dbsecret
+                  key: username
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: dbsecret
+                  key: password
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: dbsecret
+                  key: database
+        - name: cloud-sql-proxy
+          # It is recommended to use the latest version of the Cloud SQL proxy
+          # Make sure to update on a regular schedule!
+          image: gcr.io/cloudsql-docker/gce-proxy:1.17
+          command:
+            - "/cloud_sql_proxy"
+            - "-instances=todo-instance=tcp:5432"
+          securityContext:
+            # The default Cloud SQL proxy image runs as the
+            # "nonroot" user and group (uid: 65532) by default.
+            runAsNonRoot: true
