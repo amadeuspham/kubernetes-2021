@@ -31,8 +31,16 @@ spec:
           envFrom:
           - secretRef:
               name: postgres-dbpassword
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "100Mi"
         - name: timesaver
           image: amadeuspham/timesaver
           volumeMounts: 
           - name: shared-time
             mountPath: /usr/src/app/files
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "100Mi"
