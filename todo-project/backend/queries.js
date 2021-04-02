@@ -17,7 +17,7 @@ const insertTodo = (todo) => {
     if (error) {
       throw error
     }
-    console.log("Added new todo: " + todo)
+    console.log("From queries.js: Added new todo: " + todo)
     console.log(result)
   })
 }
@@ -25,6 +25,7 @@ const insertTodo = (todo) => {
 const fetchTodos = async () => {
   try {
     const { rows } = await pool.query(`SELECT * FROM entries`)
+    console.log("Fetched todos from query.js: ")
     console.log(rows)
     return rows
   } catch (error) {

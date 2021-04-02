@@ -51,6 +51,7 @@ app.get('/todos', async (req, res) => {
   const rows = await db.fetchTodos()
   if (rows) {
     const todos = rows.map(row => row.todo)
+    console.log("Sending back todos")
     res.json(todos)
   } else {
     console.error("Fetching todos from db failed")
@@ -80,7 +81,7 @@ app.post('/todos', (req, res) => {
   //   if (err) throw err
   //   console.log(reply)
   // })
-
+  console.log("inserting todo")
   db.insertTodo(content)
   res.status(201).redirect(301, '/')
 })
