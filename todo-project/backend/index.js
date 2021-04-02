@@ -36,6 +36,11 @@ const port = 3001;
 //   }
 // });
 
+app.get('/', (req, res) => {
+  res.statusCode(200)
+  res.send("Working well")
+})
+
 app.get('/todos', async (req, res) => {
   // client.get('todos', (err, reply) => {
   //   if (err) throw err;
