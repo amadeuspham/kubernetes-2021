@@ -12,7 +12,7 @@ spec:
       labels:
         app: todo-backend
     spec:
-      serviceAccountName: todoksa
+      #serviceAccountName: todoksa
       containers:
         - name: todo-backend
           image: PROJECT/IMAGE_BACKEND
@@ -48,7 +48,16 @@ spec:
           command:
             - "/cloud_sql_proxy"
             - "-instances=todo-instance=tcp:5432"
+            - "-credential_file=/secrets/service_account.json"
           securityContext:
             # The default Cloud SQL proxy image runs as the
             # "nonroot" user and group (uid: 65532) by default.
             runAsNonRoot: true 
+          volumeMounts:
+          - name: sa-secret-volume
+            mountPath: /secrets/
+            readOnly: true
+      volumes:
+      - name: sa-secret-volume
+        secret:
+          secretName: sasecret
