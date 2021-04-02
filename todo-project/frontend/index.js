@@ -61,9 +61,9 @@ app.get('/',  async (req, res) => {
   `
   const response = await axios.get('http://todo-backend-svc:3457/todos')
   const todos = response.data
-
+  console.log(todos)
   todos.forEach(todo => {
-    htmlStr += '<li>' + todo.content + '</li>'
+    htmlStr += '<li>' + todo + '</li>'
   })
 
   htmlStr += `
