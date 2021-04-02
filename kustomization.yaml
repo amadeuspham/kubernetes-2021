@@ -4,6 +4,7 @@ resources:
 - todo-project/manifests/redis-config.yaml
 - todo-project/manifests/redis.yaml
 - todo-project/manifests/service-account.yaml
+- todo-project/manifests/sealedsecret.yaml
 - todo-project/manifests/deployment.yaml
 - todo-project/manifests/deployment-backend.yaml
 - todo-project/manifests/service.yaml
