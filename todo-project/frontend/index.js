@@ -53,7 +53,7 @@ app.get('/',  async (req, res) => {
         <br>
   `
   htmlStr += `
-    <form method="POST" action="/api/todos">
+    <form method="POST" action="http://todo-backend-svc:3457/todos">
       <input type="text" id="todo" name="todo">
       <input type="submit" value="Submit">
     </form> 
