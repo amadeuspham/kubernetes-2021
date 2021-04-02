@@ -3,7 +3,7 @@ const process = require('process')
 
 const pool = new Pool({
   user: process.env.DB_USER,
-  host: '35.228.174.194',
+  host: '127.0.0.1',
   database: process.env.DB_NAME,
   password: process.env.DB_PASS,
   port: 5432,
