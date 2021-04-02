@@ -37,8 +37,7 @@ const port = 3001;
 // });
 
 app.get('/', (req, res) => {
-  res.statusCode(200)
-  res.send("Working well")
+  res.sendStatus(200)
 })
 
 app.get('/todos', async (req, res) => {
