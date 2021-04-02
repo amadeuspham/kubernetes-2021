@@ -47,7 +47,7 @@ spec:
           image: gcr.io/cloudsql-docker/gce-proxy:1.17
           command:
             - "/cloud_sql_proxy"
-            - "-instances=todo-instance=tcp:5432"
+            - "-instances=dwk-gke-309210:europe-north1:todo-instance=tcp:5432"
             - "-credential_file=/secrets/service_account.json"
           securityContext:
             # The default Cloud SQL proxy image runs as the
