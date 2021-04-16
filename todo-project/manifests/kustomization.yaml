@@ -9,12 +9,12 @@ resources:
 - rollout-backend.yaml
 - deployment-broadcaster.yaml
 - analysistemplate.yaml
-# - service.yaml
-# - service-backend.yaml
-# - horizontalpodautoscaler.yaml
-# - horizontalpodautoscaler-backend.yaml
-# - ingress.yaml
-# - cronjob.yaml
+- service.yaml
+- service-backend.yaml
+- horizontalpodautoscaler.yaml
+- horizontalpodautoscaler-backend.yaml
+- ingress.yaml
+- cronjob.yaml
 images:
 - name: PROJECT/IMAGE_FRONTEND
   newName: amadeuspham/kubernetes-todo:2.3
