@@ -5,10 +5,10 @@ resources:
 - redis.yaml
 # - sealedsecret.yaml
 - sealedsecret_telegram.yaml
-# - rollout.yaml
-# - rollout-backend.yaml
-# - deployment-broadcaster.yaml
-# - analysistemplate.yaml
+- rollout.yaml
+- rollout-backend.yaml
+- deployment-broadcaster.yaml
+- analysistemplate.yaml
 # - service.yaml
 # - service-backend.yaml
 # - horizontalpodautoscaler.yaml
