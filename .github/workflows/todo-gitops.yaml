@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'todo-project/**'
-      - '.github/workflows/gitops-app.yml'
+      - '.github/workflows/todo-gitops.yaml'
 
 jobs:
   build:
