@@ -1,0 +1,81 @@
+name: Release todo-app
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'todo-project/**'
+      - '.github/workflows/gitops-app.yml'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    # Build and push
+    - name: Publish backend to Registry
+      uses: docker/build-push-action@v1
+      with:
+        repository: amadeuspham/kubernetes-todo-backend
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        tags: ${{ github.sha }}
+        path: todo-project/backend
+    - name: Publish frontend to Registry
+      uses: docker/build-push-action@v1
+      with:
+        repository: amadeuspham/kubernetes-todo
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        tags: ${{ github.sha }}
+        path: todo-project/frontend
+    - name: Publish broadcaster to Registry
+      uses: docker/build-push-action@v1
+      with:
+        repository: amadeuspham/kubernetes-broadcaster
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        tags: ${{ github.sha }}
+        path: todo-project/broadcaster
+    - name: Publish wikijob to Registry
+      uses: docker/build-push-action@v1
+      with:
+        repository: amadeuspham/kubernetes-wiki
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        tags: ${{ github.sha }}
+        path: todo-project/wiki-job
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Kustomize
+      working-directory: todo-project/manifests
+      run: |-
+        curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
+        chmod u+x ./kustomize
+
+    # Update yamls
+    - name: Update yamls
+      working-directory: todo-project/manifests
+      run: |-
+        ./kustomize edit set image PROJECT/IMAGE_FRONTEND=amadeuspham/kubernetes-todo:${{ github.sha }}
+        ./kustomize edit set image PROJECT/IMAGE_BACKEND=amadeuspham/kubernetes-todo-backend:${{ github.sha }}
+        ./kustomize edit set image PROJECT/IMAGE_WIKI=amadeuspham/kubernetes-wiki:${{ github.sha }}
+        ./kustomize edit set image PROJECT/IMAGE_BROADCASTER=amadeuspham/kubernetes-broadcaster:${{ github.sha }}
+
+    # Commit and push
+    - uses: EndBug/add-and-commit@v5
+      with:
+        add: 'todo-project/manifests/kustomization.yaml'
+        message: New version release for todo-gitops-app ${{ github.sha }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
