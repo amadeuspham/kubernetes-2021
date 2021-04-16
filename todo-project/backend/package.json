@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "method-override": "^3.0.0",
+    "nats": "^2.0.2",
     "pg": "^8.5.1",
     "redis": "^3.0.2",
     "uuid": "^8.3.2"

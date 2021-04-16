@@ -18,7 +18,7 @@ spec:
             claimName: pingpong-claim
       containers:
         - name: hashgenerator
-          image: amadeuspham/kubernetes-main-app
+          image: APP/HASH_IMAGE
           volumeMounts: 
           - name: shared-time
             mountPath: /usr/src/app/files
@@ -35,8 +35,14 @@ spec:
             limits:
               cpu: "100m"
               memory: "100Mi"
+          readinessProbe:
+            initialDelaySeconds: 10 # Initial delay until the readiness is tested
+            periodSeconds: 5 # How often to test
+            httpGet:
+               path: /healthz
+               port: 5000
         - name: timesaver
-          image: amadeuspham/timesaver
+          image: APP/TIME_IMAGE
           volumeMounts: 
           - name: shared-time
             mountPath: /usr/src/app/files

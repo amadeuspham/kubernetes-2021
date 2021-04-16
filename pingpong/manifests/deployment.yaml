@@ -18,7 +18,7 @@ spec:
       #       claimName: pingpong-claim
       containers:
         - name: pingpong
-          image: amadeuspham/kubernetes-pingpong
+          image: PINGPONG_IMAGE
           envFrom:
           - secretRef:
               name: postgres-dbpassword
@@ -26,6 +26,12 @@ spec:
             limits:
               cpu: "100m"
               memory: "100Mi"
+          readinessProbe:
+            initialDelaySeconds: 10 # Initial delay until the readiness is tested
+            periodSeconds: 5 # How often to test
+            httpGet:
+              path: /healthz
+              port: 7000
           # volumeMounts: 
           # - name: shared-pingpongcount
           #   mountPath: /usr/src/app/files

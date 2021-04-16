@@ -11,12 +11,21 @@ var counter = 0
 const directory = path.join('/', 'usr', 'src', 'app', 'files')
 const filePath = path.join(directory, 'pingpongcount.txt')
 
+app.get('/healthz', function(req, res) {
+  try {
+    db.pingDB("pingpong", counter)
+  } catch (error) {
+    res.sendStatus(500)
+  }
+  res.sendStatus(200)
+})
+
 app.get('/',  function (req, res) {
   counter += 1
 
   // POSTGRES
   db.pingDB("pingpong", counter)
-  res.send("Pinged " + counter.toString())
+  res.send(counter.toString())
 
   // API
   // res.send(counter.toString())

@@ -1,0 +1,26 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- manifests/redis-config.yaml
+- manifests/redis.yaml
+# - manifests/sealedsecret.yaml
+- manifests/sealedsecret_telegram.yaml
+- manifests/rollout.yaml
+- manifests/rollout-backend.yaml
+- manifests/deployment-broadcaster.yaml
+- manifests/analysistemplate.yaml
+- manifests/service.yaml
+- manifests/service-backend.yaml
+- manifests/horizontalpodautoscaler.yaml
+- manifests/horizontalpodautoscaler-backend.yaml
+- manifests/ingress.yaml
+- manifests/cronjob.yaml
+images:
+- name: PROJECT/IMAGE_FRONTEND
+  newName: amadeuspham/kubernetes-todo:2.3
+- name: PROJECT/IMAGE_BACKEND
+  newName: amadeuspham/kubernetes-todo-backend:3.2
+- name: PROJECT/IMAGE_WIKI
+  newName: amadeuspham/kubernetes-wiki
+- name: PROJECT/IMAGE_BROADCASTER
+  newName: amadeuspham/kubernetes-broadcaster:1.4

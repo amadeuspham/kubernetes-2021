@@ -49,6 +49,16 @@ app.get('/',  async (req, res) => {
   htmlStr += `
     <html>
       <body>
+        <script>
+          async function toggleTodo(id) {
+            await fetch('http://todo-backend-svc:3457/todos/' + id.toString(), {
+              method: 'PUT',
+              headers: {
+                'Content-type': 'application/json'
+              },
+            });
+          }
+        </script>
         <img src="image.jpg" />
         <br>
   `
@@ -61,9 +71,21 @@ app.get('/',  async (req, res) => {
   `
   const response = await axios.get('http://todo-backend-svc:3457/todos')
   const todos = response.data
-  console.log(todos)
+  // console.log(todos)
+
   todos.forEach(todo => {
-    htmlStr += '<li>' + todo + '</li>'
+    let todoText = todo.content
+    if (todo.done) {
+      todoText = "<s>" + todoText + "</s>"
+    }
+    htmlStr +=  '<li>' + 
+                  `
+                  <form method="POST" action="/api/todos/${todo.id}?_method=PUT">
+                    ${todoText}
+                    <input type="submit" value="Toggle">
+                  </form> 
+                  ` +
+                '</li>'
   })
 
   htmlStr += `
@@ -72,6 +94,16 @@ app.get('/',  async (req, res) => {
     </html>
   `
   res.send(htmlStr)
+})
+
+app.get('/healthz', function(req, res) {
+  axios.get('http://todo-backend-svc:3457/todos')
+  .then(function (response) {
+    res.sendStatus(200)
+  })
+  .catch(function (error) {
+    res.sendStatus(500)
+  })
 })
 
 app.listen(port, () => {
