@@ -1,4 +1,4 @@
-name: Release todo-app
+name: Release todo-app (GitOps)
 
 on:
   push:
