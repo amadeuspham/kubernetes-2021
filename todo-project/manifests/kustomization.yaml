@@ -1,9 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+# - sealedsecret.yaml
 resources:
 - redis-config.yaml
 - redis.yaml
-# - sealedsecret.yaml
 - sealedsecret_telegram.yaml
 - rollout.yaml
 - rollout-backend.yaml
@@ -16,11 +16,15 @@ resources:
 - ingress.yaml
 - cronjob.yaml
 images:
-- name: PROJECT/IMAGE_FRONTEND
-  newName: amadeuspham/kubernetes-todo:2.3
 - name: PROJECT/IMAGE_BACKEND
-  newName: amadeuspham/kubernetes-todo-backend:3.2
+  newName: amadeuspham/kubernetes-todo-backend
+  newTag: f01fca67d23e61e41769f35c478bfe4cd85a44d9
+- name: PROJECT/IMAGE_BROADCASTER
+  newName: amadeuspham/kubernetes-broadcaster
+  newTag: f01fca67d23e61e41769f35c478bfe4cd85a44d9
+- name: PROJECT/IMAGE_FRONTEND
+  newName: amadeuspham/kubernetes-todo
+  newTag: f01fca67d23e61e41769f35c478bfe4cd85a44d9
 - name: PROJECT/IMAGE_WIKI
   newName: amadeuspham/kubernetes-wiki
-- name: PROJECT/IMAGE_BROADCASTER
-  newName: amadeuspham/kubernetes-broadcaster:1.4
+  newTag: f01fca67d23e61e41769f35c478bfe4cd85a44d9
