@@ -2,6 +2,9 @@ name: Release application on GKE
 
 on:
   push:
+    paths:
+        - 'todo-project/**'
+        - '.github/workflows/todo-deploy.yaml'
 
 env:
   GKE_CLUSTER: dwk-cluster
