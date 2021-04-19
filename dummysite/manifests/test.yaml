@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-dep
+  labels:
+    dummysite: "example"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: example
+  template:
+    metadata:
+      labels:
+        app: example
+    spec:
+      containers:
+      - name: example
+        image: amadeuspham/kubernetes-dummysite
+        env:
+          - name: WEBSITE_URL
+            value: http://example.com

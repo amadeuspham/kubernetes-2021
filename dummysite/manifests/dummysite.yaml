@@ -1,0 +1,7 @@
+apiVersion: stable.dwk/v1
+kind: DummySite
+metadata:
+  name: examplesite
+spec:
+  website_url: https://example.com/
+  image: amadeuspham/kubernetes-dummysite
