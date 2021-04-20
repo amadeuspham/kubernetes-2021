@@ -18,13 +18,13 @@ resources:
 images:
 - name: PROJECT/IMAGE_BACKEND
   newName: amadeuspham/kubernetes-todo-backend
-  newTag: f01fca67d23e61e41769f35c478bfe4cd85a44d9
+  newTag: 3717e92c202955f81b292aa4c582e9d74b76162d
 - name: PROJECT/IMAGE_BROADCASTER
   newName: amadeuspham/kubernetes-broadcaster
-  newTag: f01fca67d23e61e41769f35c478bfe4cd85a44d9
+  newTag: 3717e92c202955f81b292aa4c582e9d74b76162d
 - name: PROJECT/IMAGE_FRONTEND
   newName: amadeuspham/kubernetes-todo
-  newTag: f01fca67d23e61e41769f35c478bfe4cd85a44d9
+  newTag: 3717e92c202955f81b292aa4c582e9d74b76162d
 - name: PROJECT/IMAGE_WIKI
   newName: amadeuspham/kubernetes-wiki
-  newTag: f01fca67d23e61e41769f35c478bfe4cd85a44d9
+  newTag: 3717e92c202955f81b292aa4c582e9d74b76162d
