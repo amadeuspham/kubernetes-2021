@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: node-redis
+  name: redis-svc
+spec:
+  clusterIP: None
+  ports:
+  - name: web
+    port: 6379
+  selector:
+    app: node-redis
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis
+spec:
+  selector:
+    matchLabels:
+      app: node-redis
+  serviceName: redis-svc
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+      labels:
+        app: node-redis
+    spec:
+      containers:
+      - command:
+        - redis-server
+        - /redis-master/redis.conf
+        image: redis:latest
+        name: redis
+        ports:
+        - containerPort: 6379
+        volumeMounts:
+        - mountPath: /data
+          name: data
+        - mountPath: /redis-master
+          name: config
+      volumes:
+      - configMap:
+          items:
+          - key: redis-config
+            path: redis.conf
+          name: redis-config
+        name: config
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+      storageClassName: local-path
+---
