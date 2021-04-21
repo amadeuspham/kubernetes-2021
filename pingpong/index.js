@@ -5,6 +5,7 @@ const db = require('./queries')
 var app = express()
 
 const port = 7000;
+const knativePort = 8080;
 
 var counter = 0
 

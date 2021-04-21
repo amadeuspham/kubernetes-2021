@@ -1,0 +1,13 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: app-knative
+  namespace: default
+spec:
+  template:
+    spec:
+      containers:
+        - image: docker.io/amadeuspham/kubernetes-pingpong:knative02
+          env:
+            - name: TARGET
+              value: "Ping pong app knative"
