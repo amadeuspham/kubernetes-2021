@@ -41,3 +41,12 @@ I chose Google Cloud SQL, since I want to try something new (the application is 
 ![README%20c00d17d844514538ae3b40e8317274ef/Screenshot_2021-04-02_at_20.41.34.png](newTodo.png)
 
 This is the screenshot where the logs (console.log from inside the services) are shown after a new todo is added.
+
+# Exercise 5.02: Project: Service Mesh Edition
+Calling linkerd inject alone does not seem to create the modified files, so instead I called `linkerd inject <OLDFILE> > <NEWFILE>` to get the modified files with annotations. The modified YAMLS are stored in the same folders as the old ones (todo-project/manifests)
+
+# Exercise 5.03: Learn from external material
+Here's the latter part of the output when `kubectl -n test get ev --watch`is called (the whole output is too long to be screnshotted, and to be honest I'm not sure what the task is saying when it reads "take a screenshot at the end", but I guess this is what it means?)
+
+![README%20c00d17d844514538ae3b40e8317274ef/linkered-task.png](linkered-task.png)
+
