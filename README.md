@@ -1,6 +1,6 @@
 # DevOps with Kubernetes 2020-2021
 
-This repository contains submissions for the course DevOps with Kubernetes 2020-2021. This document contains submissions for essay exercises in the course.
+This repository contains submissions for the course DevOps with Kubernetes 2020-2021. This document contains submissions for "written" exercises in the course.
 
 # Exercise 3.06: DBaaS vs DIY
 
@@ -49,4 +49,13 @@ Calling linkerd inject alone does not seem to create the modified files, so inst
 Here's the latter part of the output when `kubectl -n test get ev --watch`is called (the whole output is too long to be screnshotted, and to be honest I'm not sure what the task is saying when it reads "take a screenshot at the end", but I guess this is what it means?)
 
 ![README%20c00d17d844514538ae3b40e8317274ef/linkered-task.png](linkerd_task.png)
+
+# Exercise 5.04: Platform comparison OpenShift vs Rancher
+- Installation time: Rancher ranges from 20 minutes - 2 days, while OpenShift takes from 3 days to weeks
+- Approach: OpenShift's approch is to create large k8s clusters and manage them independently, while Rancheräs is to unify clusters into one single management plane.
+- Industry standards: OpenShift favors its own tools and pracrtices, which prevents developers from analysis paralysis, but creates vendor lock-in. In fact, switching back to vanilla Kubernetes is not possible once OpenShift is adopted. Rancher follows and extends industry standards, and just like Kubernetes, it does not tell you what to do, but rather gives you the tool to help you achieve what you need.
+- From the point above, it leads to the fact that the skills you learnt from OpenShift might not be as transferrable as they can be from Rancher.
+- Open source: while Rancher is 100% open-source, OpenShift has 2 versions: Community and Enterprise, the latter is not open source.
+
+From this analysis I made, in my opinion Rancher is the better option. Easier installation and more freedom means more to me, even though OpenShift prevents me from having to consider a wide ranging set of options.
 
