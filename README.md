@@ -48,5 +48,5 @@ Calling linkerd inject alone does not seem to create the modified files, so inst
 # Exercise 5.03: Learn from external material
 Here's the latter part of the output when `kubectl -n test get ev --watch`is called (the whole output is too long to be screnshotted, and to be honest I'm not sure what the task is saying when it reads "take a screenshot at the end", but I guess this is what it means?)
 
-![README%20c00d17d844514538ae3b40e8317274ef/linkered-task.png](linkerd-task.png)
+![README%20c00d17d844514538ae3b40e8317274ef/linkered-task.png](linkerd_task.png)
 
