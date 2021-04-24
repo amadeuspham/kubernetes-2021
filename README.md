@@ -59,3 +59,25 @@ Here's the latter part of the output when `kubectl -n test get ev --watch`is cal
 
 From this analysis I made, in my opinion Rancher is the better option. Easier installation and more freedom means more to me, even though OpenShift prevents me from having to consider a wide ranging set of options.
 
+# Exercise 5.06: Landscape
+
+- I used MongoDB in the past to build the databases for React applications
+- I used MySQL in the pasting the process of learning SQL
+- I used PostgreSQL to build and configure the database for the main application in this course
+- I used redis to build the database for the todo project in this course
+- I used NATS as a messaging system to enable a feature in the todo project, which broadcasts messages to my Telegram channel when a new todo is added, or modified.
+- I used Helm to install Prometheus and Loki. 
+- I used flux to configure CI/CD GitOps in my pingpong app.
+- I used GitLab for university projects.
+- I used Travis CI to configure CI/CD for one of my own projects
+- I used Docker (obviously :D) to containerise applications
+- I have some experience with Rancher during summer work, I used it but did not set it up or anything.
+- I used AWS to host one of my projects. The specific services are AWS Lambda and S3.
+- I used Google Kubernetes Engine to host a cluster in part 3 of this course
+- I used Heroku to host another one of my projects.
+- I used Kubernetes :D for this course
+- I used Contour is configure the networking layer needed for Knative server less deployment in part 5.
+- I used Linkerd as a service mesh to monitor my todo project in part 4.
+- Flannel is indirectly used since k3d uses it. I didn’t actually know this until I read the task example answers :)
+- I used Prometheus to monitor the cluster in part 2.
+- I used Grafana to view the data monitored by Prometheus.
