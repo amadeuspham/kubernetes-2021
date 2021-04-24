@@ -61,7 +61,7 @@ From this analysis I made, in my opinion Rancher is the better option. Easier in
 
 # Exercise 5.06: Landscape
 
-![README%20c00d17d844514538ae3b40e8317274ef/landscape.png](landscape.png)
+![README%20c00d17d844514538ae3b40e8317274ef/landscape.png](landscape.jpg)
 
 - I used MongoDB in the past to build the databases for React applications
 - I used MySQL in the pasting the process of learning SQL
